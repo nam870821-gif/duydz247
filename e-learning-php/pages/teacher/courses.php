@@ -141,9 +141,15 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="card">
                 <h4>📈 Khóa học phổ biến</h4>
                 <?php 
-                $popular = !empty($courses) ? max($courses, function($a, $b) {
-                    return $a['student_count'] <=> $b['student_count'];
-                }) : null;
+                $popular = null;
+                if (!empty($courses)) {
+                    $popular = $courses[0];
+                    foreach ($courses as $c) {
+                        if ((int)$c['student_count'] > (int)$popular['student_count']) {
+                            $popular = $c;
+                        }
+                    }
+                }
                 ?>
                 <p style="font-size: 1.1rem; font-weight: bold; color: #dc3545; text-align: center;">
                     <?php echo $popular ? htmlspecialchars($popular['title']) : 'Chưa có'; ?>

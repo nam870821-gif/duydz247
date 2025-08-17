@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../database/config.php';
+require_once __DIR__ . '/../database/config.php';
 
 class Auth {
     private $db;
@@ -87,7 +87,7 @@ class Auth {
     
     public function requireLogin() {
         if (!$this->isLoggedIn()) {
-            header('Location: /login.php');
+            header('Location: /index.php');
             exit();
         }
     }
