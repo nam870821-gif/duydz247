@@ -61,23 +61,7 @@ $leaderboard = $gamification->getLeaderboard(5);
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">🎓 E-Learning</div>
-            <ul class="nav-menu">
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <?php if ($user['role'] == 'teacher'): ?>
-                    <li><a href="pages/teacher/courses.php">Khóa học</a></li>
-                    <li><a href="pages/teacher/assignments.php">Bài tập</a></li>
-                <?php else: ?>
-                    <li><a href="pages/student/courses.php">Khóa học</a></li>
-                    <li><a href="pages/student/assignments.php">Bài tập</a></li>
-                <?php endif; ?>
-                <li><a href="pages/messages.php">Tin nhắn</a></li>
-                <li><a href="logout.php">Đăng xuất</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php $ROOT = ''; include __DIR__ . '/includes/header.php'; ?>
 
     <main class="container dashboard">
         <div class="dashboard-header">
@@ -115,7 +99,7 @@ $leaderboard = $gamification->getLeaderboard(5);
                     <a href="pages/teacher/create_course.php" class="btn" style="width: 100%; margin-bottom: 0.5rem;">Tạo khóa học</a>
                     <a href="pages/teacher/create_assignment.php" class="btn btn-secondary" style="width: 100%;">Tạo bài tập</a>
                 </div>
-            <?php else: ?>
+            <?php elseif ($user's role' == 'student'): ?>
                 <div class="card">
                     <h3>📚 Khóa học đã đăng ký</h3>
                     <p class="text-center" style="font-size: 2rem; font-weight: bold; color: #667eea;">
@@ -136,6 +120,25 @@ $leaderboard = $gamification->getLeaderboard(5);
                     <h3>🔍 Khám phá</h3>
                     <p>Tìm kiếm khóa học mới</p>
                     <a href="pages/student/browse.php" class="btn btn-success" style="width: 100%;">Tìm khóa học</a>
+                </div>
+            <?php else: // admin ?>
+                <div class="card">
+                    <h3>👥 Tổng người dùng</h3>
+                    <p class="text-center" style="font-size: 2rem; font-weight: bold; color: #667eea;">
+                        <?php echo (int)$db->query("SELECT COUNT(*) FROM users")->fetchColumn(); ?>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>📚 Tổng khóa học</h3>
+                    <p class="text-center" style="font-size: 2rem; font-weight: bold; color: #28a745;">
+                        <?php echo (int)$db->query("SELECT COUNT(*) FROM courses")->fetchColumn(); ?>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>📝 Tổng bài tập</h3>
+                    <p class="text-center" style="font-size: 2rem; font-weight: bold; color: #dc3545;">
+                        <?php echo (int)$db->query("SELECT COUNT(*) FROM assignments")->fetchColumn(); ?>
+                    </p>
                 </div>
             <?php endif; ?>
         </div>

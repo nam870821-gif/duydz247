@@ -94,23 +94,7 @@ $update_stmt->execute();
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">🎓 E-Learning</div>
-            <ul class="nav-menu">
-                <li><a href="../dashboard.php">Dashboard</a></li>
-                <?php if ($user['role'] == 'teacher'): ?>
-                    <li><a href="teacher/courses.php">Khóa học</a></li>
-                    <li><a href="teacher/assignments.php">Bài tập</a></li>
-                <?php else: ?>
-                    <li><a href="student/courses.php">Khóa học</a></li>
-                    <li><a href="student/assignments.php">Bài tập</a></li>
-                <?php endif; ?>
-                <li><a href="messages.php" style="opacity: 0.8;">Tin nhắn</a></li>
-                <li><a href="../logout.php">Đăng xuất</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php $ROOT = '..'; include __DIR__ . '/../includes/header.php'; ?>
 
     <main class="container">
         <div class="dashboard-header">
