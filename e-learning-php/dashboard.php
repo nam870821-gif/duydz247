@@ -144,7 +144,7 @@ if ($user['role'] == 'teacher') {
                     $stmt = $db->prepare($query);
                     $stmt->bindParam(':teacher_id', $user['id']);
                 } else {
-                    $query = "SELECT c.* FROM courses c 
+                    $query = "SELECT c.*, e.progress FROM courses c 
                              JOIN enrollments e ON c.id = e.course_id 
                              WHERE e.student_id = :student_id 
                              ORDER BY e.enrolled_at DESC LIMIT 4";
@@ -161,6 +161,16 @@ if ($user['role'] == 'teacher') {
                         <div class="course-content">
                             <h4 class="course-title"><?php echo htmlspecialchars($course['title']); ?></h4>
                             <p class="course-description"><?php echo htmlspecialchars(substr($course['description'], 0, 100)) . '...'; ?></p>
+                            
+                            <?php if ($user['role'] == 'student' && isset($course['progress'])): ?>
+                                <div class="mini-progress">
+                                    <div class="mini-progress-bar">
+                                        <div class="mini-progress-fill" style="width: <?php echo $course['progress']; ?>%"></div>
+                                    </div>
+                                    <span class="mini-progress-text"><?php echo $course['progress']; ?>% hoàn thành</span>
+                                </div>
+                            <?php endif; ?>
+                            
                             <div class="course-meta">
                                 <span><?php echo date('d/m/Y', strtotime($course['created_at'])); ?></span>
                                 <a href="pages/course_detail.php?id=<?php echo $course['id']; ?>" class="btn" style="padding: 0.5rem 1rem;">Xem chi tiết</a>
@@ -176,6 +186,34 @@ if ($user['role'] == 'teacher') {
                 <?php endif; ?>
             </div>
         </div>
+
+        <style>
+            .mini-progress {
+                margin: 0.5rem 0;
+            }
+            
+            .mini-progress-bar {
+                width: 100%;
+                height: 8px;
+                background: #f0f0f0;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 0.25rem;
+            }
+            
+            .mini-progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+                border-radius: 4px;
+                transition: width 0.5s ease;
+            }
+            
+            .mini-progress-text {
+                font-size: 0.8rem;
+                color: #667eea;
+                font-weight: 600;
+            }
+        </style>
     </main>
 </body>
 </html>
