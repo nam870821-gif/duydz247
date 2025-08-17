@@ -383,3 +383,10 @@ body {
     font-size: 2rem;
     font-weight: bold;
 }
+
+/* Footer */
+.footer {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}

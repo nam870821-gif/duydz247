@@ -264,5 +264,6 @@ $leaderboard = $gamification->getLeaderboard(5);
             }
         </style>
     </main>
+    <?php $ROOT = ''; include __DIR__ . '/includes/footer.php'; ?>
 </body>
 </html>

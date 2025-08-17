@@ -217,7 +217,7 @@ $update_stmt->execute();
             </div>
         </div>
     </main>
-
+    <?php $ROOT = '..'; include __DIR__ . '/../includes/footer.php'; ?>
     <script>
         // Tự động cuộn xuống tin nhắn mới nhất
         const chatContainer = document.querySelector('.chat-container');
