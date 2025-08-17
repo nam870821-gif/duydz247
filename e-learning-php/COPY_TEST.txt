@@ -1,0 +1,11 @@
+🎓 E-LEARNING PLATFORM - TEST COPY
+
+Nếu bạn thấy text này, có nghĩa là bạn có thể copy được!
+
+📋 HƯỚNG DẪN:
+1. Tạo thư mục "e-learning-php" trên máy Windows
+2. Tôi sẽ show từng file PHP để bạn copy
+3. Paste vào đúng đường dẫn như hướng dẫn
+
+🚀 SẴN SÀNG BẮT ĐẦU?
+Hãy cho tôi biết bạn copy được text này không!
