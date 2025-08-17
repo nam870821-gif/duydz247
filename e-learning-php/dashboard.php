@@ -68,6 +68,8 @@ if ($user['role'] == 'teacher') {
                     <li><a href="pages/student/assignments.php">Bài tập</a></li>
                 <?php endif; ?>
                 <li><a href="pages/messages.php">Tin nhắn</a></li>
+                <li><a href="pages/forum.php">🗣️ Forum</a></li>
+                <li><a href="pages/chatbot.php">🤖 AI Bot</a></li>
                 <li><a href="logout.php">Đăng xuất</a></li>
             </ul>
         </nav>
