@@ -127,6 +127,7 @@ $assignments = $assign_stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo (int)$a['max_score']; ?></td>
                                     <td><?php echo (int)$a['submissions_count']; ?></td>
                                     <td>
+                                        <a href="assignment_submissions.php?assignment_id=<?php echo $a['id']; ?>" class="btn" style="padding:.5rem; margin-right:.5rem;">📄 Bài nộp</a>
                                         <a href="?delete=<?php echo $a['id']; ?>" class="btn btn-danger" style="padding:.5rem;"
                                            onclick="return confirm('Xóa bài tập này?')">🗑️ Xóa</a>
                                     </td>

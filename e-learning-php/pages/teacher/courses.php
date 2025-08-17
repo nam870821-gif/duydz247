@@ -43,18 +43,7 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">🎓 E-Learning</div>
-            <ul class="nav-menu">
-                <li><a href="../../dashboard.php">Dashboard</a></li>
-                <li><a href="courses.php" style="opacity: 0.8;">Khóa học</a></li>
-                <li><a href="assignments.php">Bài tập</a></li>
-                <li><a href="../messages.php">Tin nhắn</a></li>
-                <li><a href="../../logout.php">Đăng xuất</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php $ROOT = '../..'; include __DIR__ . '/../../includes/header.php'; ?>
 
     <main class="container">
         <div class="dashboard-header">
@@ -108,13 +97,11 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="../course_detail.php?id=<?php echo $course['id']; ?>" 
-                                           class="btn" style="padding: 0.5rem; margin-right: 0.5rem;">👁️ Xem</a>
-                                        <a href="edit_course.php?id=<?php echo $course['id']; ?>" 
-                                           class="btn btn-secondary" style="padding: 0.5rem; margin-right: 0.5rem;">✏️ Sửa</a>
-                                        <a href="?delete=<?php echo $course['id']; ?>" 
-                                           class="btn btn-danger" style="padding: 0.5rem;"
-                                           onclick="return confirm('Bạn có chắc muốn xóa khóa học này?')">🗑️ Xóa</a>
+                                        <a href="../course_detail.php?id=<?php echo $course['id']; ?>" class="btn" style="padding: 0.5rem; margin-right: 0.5rem;">👁️ Xem</a>
+                                        <a href="edit_course.php?id=<?php echo $course['id']; ?>" class="btn btn-secondary" style="padding: 0.5rem; margin-right: 0.5rem;">✏️ Sửa</a>
+                                        <a href="../teacher/manage_course_students.php?course_id=<?php echo $course['id']; ?>" class="btn" style="padding: 0.5rem; margin-right: 0.5rem;">👥 Học sinh</a>
+                                        <a href="../teacher/lessons.php?course_id=<?php echo $course['id']; ?>" class="btn" style="padding: 0.5rem; margin-right: 0.5rem;">📖 Bài giảng</a>
+                                        <a href="?delete=<?php echo $course['id']; ?>" class="btn btn-danger" style="padding: 0.5rem;" onclick="return confirm('Bạn có chắc muốn xóa khóa học này?')">🗑️ Xóa</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -157,19 +144,6 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </main>
-
-    <style>
-        .table-responsive {
-            overflow-x: auto;
-        }
-        
-        .text-success {
-            color: #28a745;
-        }
-        
-        .text-danger {
-            color: #dc3545;
-        }
-    </style>
+    <?php $ROOT = '../..'; include __DIR__ . '/../../includes/footer.php'; ?>
 </body>
 </html>
