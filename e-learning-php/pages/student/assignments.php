@@ -1,6 +1,7 @@
 <?php
 require_once '../../includes/auth.php';
 require_once '../../database/config.php';
+require_once '../../includes/gamification.php';
 
 $auth = new Auth();
 $auth->requireRole('student');
@@ -8,6 +9,7 @@ $auth->requireRole('student');
 $user = $auth->getUser();
 $database = new Database();
 $db = $database->getConnection();
+$gamification = new Gamification();
 
 $message = '';
 
@@ -30,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_assignment']))
             $upd->bindParam(':id', $existing_id);
             $upd->execute();
             $message = 'Đã cập nhật bài nộp.';
+            $gamification->recordSubmission($user['id'], $assignment_id, false);
         } else {
             $ins = $db->prepare("INSERT INTO submissions (assignment_id, student_id, content) VALUES (:aid, :sid, :content)");
             $ins->bindParam(':aid', $assignment_id);
@@ -37,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_assignment']))
             $ins->bindParam(':content', $content);
             $ins->execute();
             $message = 'Đã nộp bài thành công!';
+            $gamification->recordSubmission($user['id'], $assignment_id, true);
         }
     }
 }

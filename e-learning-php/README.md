@@ -23,6 +23,7 @@ Nền tảng học tập trực tuyến được xây dựng bằng PHP, HTML, C
 - ✅ Dashboard tùy theo vai trò
 - ✅ Giao diện responsive
 - ✅ Hệ thống tin nhắn real-time
+- ✅ Gamification (điểm, cấp độ, thành tích, leaderboard)
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -99,47 +100,24 @@ e-learning-php/
 │   └── images/       # Hình ảnh
 ├── database/
 │   ├── config.php    # Cấu hình database
-│   └── schema.sql    # Schema database
+│   └── schema.sql    # Schema database (bao gồm Gamification)
 ├── includes/
-│   └── auth.php      # Xử lý authentication
+│   ├── auth.php      # Xử lý authentication
+│   └── gamification.php # Gamification helper
 ├── pages/
 │   ├── teacher/      # Trang dành cho giáo viên
 │   ├── student/      # Trang dành cho học sinh
 │   └── messages.php  # Hệ thống tin nhắn
 ├── uploads/          # File upload
 ├── index.php         # Trang đăng nhập
-├── dashboard.php     # Trang chính
+├── dashboard.php     # Trang chính (có leaderboard)
 └── README.md
 ```
 
 ## 🎯 Hướng dẫn sử dụng
 
-### Đăng ký tài khoản mới
-1. Truy cập trang chủ
-2. Click tab "Đăng Ký"
-3. Điền thông tin và chọn vai trò
-4. Click "Đăng Ký"
-
-### Giáo viên tạo khóa học
-1. Đăng nhập với tài khoản giáo viên
-2. Vào "Dashboard" → "Tạo khóa học mới"
-3. Điền thông tin khóa học
-4. Click "Tạo Khóa Học"
-
-### Học sinh đăng ký khóa học
-1. Đăng nhập với tài khoản học sinh
-2. Vào "Tìm khóa học"
-3. Tìm kiếm khóa học phù hợp
-4. Click "Đăng ký"
-
-### Tạo và làm bài tập
-1. **Giáo viên**: Dashboard → Tạo bài tập → Điền thông tin
-2. **Học sinh**: Dashboard → Bài tập → Chọn bài tập → Làm bài
-
-### Sử dụng tin nhắn
-1. Vào mục "Tin nhắn"
-2. Chọn người nhận
-3. Viết tin nhắn và gửi
+- Học sinh: Đăng ký khóa học → Làm bài → Cập nhật tiến độ. Hệ thống tự cộng điểm, lên cấp và trao thành tích.
+- Leaderboard: Xem top người học có điểm cao nhất ngay trên dashboard.
 
 ## 🔒 Bảo mật
 
@@ -182,19 +160,10 @@ Giao diện tự động thích ứng với:
 
 Dự án được phát hành dưới [MIT License](LICENSE).
 
-## 📞 Hỗ trợ
-
-Nếu gặp vấn đề, vui lòng:
-1. Kiểm tra [Issues](../../issues)
-2. Tạo issue mới nếu chưa có
-3. Liên hệ: [your-email@example.com]
-
 ## 🚀 Phát triển tiếp
 
 ### Tính năng sắp tới
 - [ ] Video call trực tuyến
-- [ ] Gamification
-- [ ] Mobile app
 - [ ] API REST
 - [ ] Multi-language support
 

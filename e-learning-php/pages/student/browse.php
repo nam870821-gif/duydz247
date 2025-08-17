@@ -1,6 +1,7 @@
 <?php
 require_once '../../includes/auth.php';
 require_once '../../database/config.php';
+require_once '../../includes/gamification.php';
 
 $auth = new Auth();
 $auth->requireRole('student');
@@ -8,6 +9,7 @@ $auth->requireRole('student');
 $user = $auth->getUser();
 $database = new Database();
 $db = $database->getConnection();
+$gamification = new Gamification();
 
 $message = '';
 
@@ -30,6 +32,8 @@ if (isset($_POST['enroll'])) {
         
         if ($enroll_stmt->execute()) {
             $message = 'Đăng ký khóa học thành công!';
+            // Gamification: award points and possible achievement
+            $gamification->recordEnrollment($user['id'], (int)$course_id);
         } else {
             $message = 'Có lỗi xảy ra khi đăng ký!';
         }

@@ -98,3 +98,41 @@ INSERT INTO users (username, email, password, full_name, role) VALUES
 ('admin', 'admin@elearning.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator', 'admin'),
 ('teacher1', 'teacher1@elearning.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Nguyễn Văn A', 'teacher'),
 ('student1', 'student1@elearning.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Trần Thị B', 'student');
+
+-- Gamification tables
+CREATE TABLE IF NOT EXISTS gamification_events (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT NOT NULL,
+	type VARCHAR(50) NOT NULL,
+	points INT NOT NULL,
+	course_id INT DEFAULT NULL,
+	assignment_id INT DEFAULT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL,
+	FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	code VARCHAR(50) UNIQUE NOT NULL,
+	title VARCHAR(100) NOT NULL,
+	description VARCHAR(255) DEFAULT NULL,
+	points_reward INT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS user_achievements (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT NOT NULL,
+	achievement_id INT NOT NULL,
+	earned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	UNIQUE KEY user_achievements_unique (user_id, achievement_id),
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY (achievement_id) REFERENCES achievements(id) ON DELETE CASCADE
+);
+
+-- Seed achievements
+INSERT IGNORE INTO achievements (code, title, description, points_reward) VALUES
+('first_enrollment', 'Đăng ký đầu tiên', 'Đăng ký khóa học đầu tiên của bạn', 20),
+('first_submission', 'Bài nộp đầu tiên', 'Nộp bài tập đầu tiên', 20),
+('course_finisher', 'Hoàn thành khóa học', 'Hoàn thành 1 khóa học', 50);

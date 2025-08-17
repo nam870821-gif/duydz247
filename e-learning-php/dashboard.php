@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/auth.php';
 require_once 'database/config.php';
+require_once 'includes/gamification.php';
 
 $auth = new Auth();
 $auth->requireLogin();
@@ -8,6 +9,7 @@ $auth->requireLogin();
 $user = $auth->getUser();
 $database = new Database();
 $db = $database->getConnection();
+$gamification = new Gamification();
 
 // Lấy thống kê
 $stats = [];
@@ -44,6 +46,10 @@ if ($user['role'] == 'teacher') {
     $stmt->execute();
     $stats['assignments'] = $stmt->fetch(PDO::FETCH_ASSOC)['total_assignments'];
 }
+
+// Gamification: user stats and leaderboard
+$gamiStats = $gamification->getUserStats($user['id']);
+$leaderboard = $gamification->getLeaderboard(5);
 ?>
 
 <!DOCTYPE html>
@@ -132,6 +138,46 @@ if ($user['role'] == 'teacher') {
                     <a href="pages/student/browse.php" class="btn btn-success" style="width: 100%;">Tìm khóa học</a>
                 </div>
             <?php endif; ?>
+        </div>
+
+        <!-- Gamification -->
+        <div class="grid grid-2" style="margin-top:1.5rem;">
+            <div class="card">
+                <h3>🏆 Gamification của bạn</h3>
+                <div class="grid grid-3">
+                    <div class="progress-card">
+                        <h4>⭐ Level</h4>
+                        <div class="big-number"><?php echo $gamiStats['level']; ?></div>
+                    </div>
+                    <div class="progress-card">
+                        <h4>💯 Điểm</h4>
+                        <div class="big-number" style="color:#28a745;">
+                            <?php echo $gamiStats['points']; ?>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <h4>🏅 Thành tích</h4>
+                        <div class="big-number" style="color:#dc3545;">
+                            <?php echo $gamiStats['achievements_count']; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>📋 Bảng xếp hạng (Top 5)</h3>
+                <?php if (empty($leaderboard)): ?>
+                    <p class="text-center" style="color:#666;">Chưa có dữ liệu.</p>
+                <?php else: ?>
+                    <ol>
+                        <?php foreach ($leaderboard as $row): ?>
+                            <li style="margin: .5rem 0; display:flex; justify-content:space-between;">
+                                <span><?php echo htmlspecialchars($row['full_name']); ?></span>
+                                <strong><?php echo (int)$row['total_points']; ?> pts</strong>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                <?php endif; ?>
+            </div>
         </div>
 
         <!-- Khóa học gần đây -->
