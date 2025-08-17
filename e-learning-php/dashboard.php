@@ -99,7 +99,7 @@ $leaderboard = $gamification->getLeaderboard(5);
                     <a href="pages/teacher/create_course.php" class="btn" style="width: 100%; margin-bottom: 0.5rem;">Tạo khóa học</a>
                     <a href="pages/teacher/create_assignment.php" class="btn btn-secondary" style="width: 100%;">Tạo bài tập</a>
                 </div>
-            <?php elseif ($user's role' == 'student'): ?>
+            <?php elseif ($user['role'] == 'student'): ?>
                 <div class="card">
                     <h3>📚 Khóa học đã đăng ký</h3>
                     <p class="text-center" style="font-size: 2rem; font-weight: bold; color: #667eea;">
