@@ -1,6 +1,7 @@
 <?php
 require_once '../../includes/auth.php';
 require_once '../../database/config.php';
+require_once '../../includes/gamification.php';
 
 $auth = new Auth();
 $auth->requireRole('student');
@@ -8,6 +9,7 @@ $auth->requireRole('student');
 $user = $auth->getUser();
 $database = new Database();
 $db = $database->getConnection();
+$gamification = new Gamification();
 
 // Cập nhật progress nếu có action
 if (isset($_POST['update_progress'])) {
@@ -21,6 +23,10 @@ if (isset($_POST['update_progress'])) {
     $update_stmt->bindParam(':student_id', $user['id']);
     $update_stmt->bindParam(':course_id', $course_id);
     $update_stmt->execute();
+
+    if ($progress >= 100) {
+        $gamification->recordCourseCompletionIfNew($user['id'], (int)$course_id);
+    }
 }
 
 // Lấy danh sách khóa học đã đăng ký với thông tin progress
